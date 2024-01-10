@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#f7f6f1"
+  image: "assets/neo_new.png"
+  color_dark: "#272727"
+  image_dark: "assets/neo_new.png"
+
+  android_12:
+    icon_background_color: "#f7f6f1"
+    image: "assets/neo_new.png"
+    icon_background_color_dark: "#272727"
+    image_dark: "assets/neo_new.png"
+
+  android: true
+  ios: true
+  web: false
