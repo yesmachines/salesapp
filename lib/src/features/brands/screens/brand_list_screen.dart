@@ -18,11 +18,13 @@ class BrandListScreen extends StatefulWidget {
 }
 
 class _BrandListScreenState extends State<BrandListScreen> {
+  bool isyc = false;
   final BrandController brandcontroller = Get.put(BrandController());
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (widget.divisionId.toLowerCase() == "yc") {
+        isyc = true;
         brandcontroller.fetchSuppliers(divisionId: widget.divisionId, isyc: true);
       } else {
         brandcontroller.fetchSuppliers(divisionId: widget.divisionId, isyc: false);
@@ -74,7 +76,10 @@ class _BrandListScreenState extends State<BrandListScreen> {
                     children: List.generate(supplierList.length, (index) {
                       return InkWell(
                         onTap: () {
-                          Get.to(() => ProductLists(brandid: supplierList[index].id.toString()));
+                          Get.to(() => ProductLists(
+                                brandid: supplierList[index].id.toString(),
+                                isYc: isyc,
+                              ));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

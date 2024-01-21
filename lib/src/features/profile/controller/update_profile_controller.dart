@@ -16,7 +16,7 @@ class UpdateProfileController extends GetxController {
     try {
       var headers = {"Content-Type": "application/json"};
       var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.enquiryEndPoints.enquiryUrl);
-      //print(url);
+      //// print(url);
       Map body = {
         "name": nameController.text.trim(),
         "password": passwordController.text.trim(),
@@ -26,9 +26,9 @@ class UpdateProfileController extends GetxController {
       http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        //  print(json);
+        //  // print(json);
         if (json["success"]) {
-          //  print(json["data"]);
+          //  // print(json["data"]);
           nameController.clear();
           passwordController.clear();
           useridController.clear();
@@ -41,7 +41,7 @@ class UpdateProfileController extends GetxController {
         throw jsonDecode(response.body)["message"] ?? "Unknown error occured";
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 }

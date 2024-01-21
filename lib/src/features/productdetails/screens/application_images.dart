@@ -7,12 +7,22 @@ import 'package:yesmachinery/src/utils/api_endpoints.dart';
 class ApplicationImages extends StatelessWidget {
   final List<Map<String, dynamic>> productImages;
   final List<Map<String, dynamic>> applicationImages;
-  final String rootPath = ApiEndPoints.imageRootPath;
+  String rootPath = ApiEndPoints.imageRootPath;
+  final bool isyc;
 
-  ApplicationImages({required this.productImages, required this.applicationImages});
+  ApplicationImages({
+    required this.productImages,
+    required this.applicationImages,
+    required this.isyc,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (isyc == true) {
+      rootPath = ApiEndPoints.ycImageRootPath;
+    } else {
+      rootPath = ApiEndPoints.imageRootPath;
+    }
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -32,8 +42,14 @@ class ApplicationImages extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            ImageGrid(images: productImages),
-            ImageGrid(images: applicationImages),
+            ImageGrid(
+              images: productImages,
+              isyc: isyc,
+            ),
+            ImageGrid(
+              images: applicationImages,
+              isyc: isyc,
+            ),
           ],
         ),
       ),
@@ -43,12 +59,21 @@ class ApplicationImages extends StatelessWidget {
 
 class ImageGrid extends StatelessWidget {
   final List<Map<String, dynamic>> images;
-  final String rootPath = ApiEndPoints.imageRootPath;
+  String rootPath = ApiEndPoints.imageRootPath;
+  final bool isyc;
 
-  ImageGrid({required this.images});
+  ImageGrid({
+    required this.images,
+    required this.isyc,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (isyc == true) {
+      rootPath = ApiEndPoints.ycImageRootPath;
+    } else {
+      rootPath = ApiEndPoints.imageRootPath;
+    }
     return (images.isNotEmpty)
         ? GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -63,8 +63,10 @@ class _SearchPageState extends State<SearchPage> {
                   itemCount: searchpagecontroller.foundProduct.length,
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
-                      Get.to(() =>
-                          ProductDetailsScreen(productid: searchpagecontroller.foundProduct[index].id.toString()));
+                      Get.to(() => ProductDetailsScreen(
+                            productid: searchpagecontroller.foundProduct[index].id.toString(),
+                            isyc: false, // todo need to be updated
+                          ));
                     },
                     child: ListTile(
                       title: Text(

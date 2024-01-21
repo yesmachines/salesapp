@@ -20,7 +20,7 @@ class EnquiryController extends GetxController {
     try {
       var headers = {"Content-Type": "application/json"};
       var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.enquiryEndPoints.enquiryUrl);
-      //print(url);
+      //// print(url);
       Map body = {
         "name": nameController.text.trim(),
         "company": companyController.text.trim(),
@@ -33,9 +33,9 @@ class EnquiryController extends GetxController {
       http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        //  print(json);
+        //  // print(json);
         if (json["success"]) {
-          //  print(json["data"]);
+          //  // print(json["data"]);
           nameController.clear();
           companyController.clear();
           emailController.clear();
@@ -66,7 +66,7 @@ class EnquiryController extends GetxController {
         colorText: Colors.white,
       );
       isLoading.value = false;
-      print(e.toString());
+      // print(e.toString());
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:yesmachinery/src/features/productdetails/screens/product_detail.dart';
@@ -12,7 +13,8 @@ import 'package:yesmachinery/src/features/home/screens/search.dart';
 class ProductLists extends StatefulWidget {
   //const ProductLists({Key? key}) : super(key: key);
   final String brandid;
-  const ProductLists({Key? key, required this.brandid}) : super(key: key);
+  final bool isYc; // boolean to check wheter the product is yesclean
+  const ProductLists({Key? key, required this.brandid, required this.isYc}) : super(key: key);
 
   @override
   State<ProductLists> createState() => _ProductListsState();
@@ -26,7 +28,7 @@ class _ProductListsState extends State<ProductLists> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await productcontroller.updateID(widget.brandid);
+      await productcontroller.fetchProducts(brandid: widget.brandid.toString(), isyc: widget.isYc);
       productList = productcontroller.productList;
     });
     super.initState();
@@ -34,6 +36,11 @@ class _ProductListsState extends State<ProductLists> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isYc == true) {
+      rootPath = ApiEndPoints.ycImageRootPath;
+    } else {
+      rootPath = ApiEndPoints.imageRootPath;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -76,7 +83,10 @@ class _ProductListsState extends State<ProductLists> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Get.to(() => ProductDetailsScreen(productid: productList[index].id.toString()));
+                          Get.to(() => ProductDetailsScreen(
+                                productid: productList[index].id.toString(),
+                                isyc: widget.isYc,
+                              ));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),

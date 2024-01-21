@@ -14,9 +14,14 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:yesmachinery/src/features/productdetails/screens/enquiry.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  ProductDetailsScreen({Key? key, required this.productid}) : super(key: key);
+  const ProductDetailsScreen({
+    Key? key,
+    required this.productid,
+    required this.isyc,
+  }) : super(key: key);
 
   final String productid;
+  final bool isyc;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -25,19 +30,25 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> with TickerProviderStateMixin {
   int selectedImage = 0;
   String rootPath = ApiEndPoints.imageRootPath;
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final ProductDetailController productdetailcontroller = Get.put(ProductDetailController());
 
   @override
   void initState() {
-    productdetailcontroller.productId = widget.productid;
-    productdetailcontroller.updateID(widget.productid);
-    //  print("Screen Initial ${widget.productid}");
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await productdetailcontroller.fetchProductDetails(productId: widget.productid, isyc: widget.isyc);
+    });
+    //  // print("Screen Initial ${widget.productid}");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isyc == true) {
+      rootPath = ApiEndPoints.ycImageRootPath;
+    } else {
+      rootPath = ApiEndPoints.imageRootPath;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -89,7 +100,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                             children: [
                               Expanded(
                                 child: Text(
-                                  productdetailcontroller.productDetail.name ?? "",
+                                  productdetailcontroller.productDetail?.name ?? "",
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   softWrap: false,
@@ -107,7 +118,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                             children: [
                               Expanded(
                                 child: Text(
-                                  productdetailcontroller.productDetail.category ?? "",
+                                  productdetailcontroller.productDetail?.category ?? "",
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   softWrap: false,
@@ -122,7 +133,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                             children: [
                               Expanded(
                                 child: Text(
-                                  "By : ${productdetailcontroller.productDetail.brand}, ${productdetailcontroller.productDetail.country}",
+                                  "By : ${productdetailcontroller.productDetail?.brand}, ${productdetailcontroller.productDetail?.country}",
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   softWrap: false,
@@ -140,6 +151,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return ApplicationImages(
+                                      isyc: widget.isyc,
                                       applicationImages: productdetailcontroller.applicationImages.isNotEmpty
                                           ? productdetailcontroller.applicationImages
                                           : [],
@@ -192,7 +204,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return ProductCatalogScreen(
-                                      key: UniqueKey(),
+                                      isyc: widget.isyc,
                                       productCatalog: productdetailcontroller.productCatalog.isNotEmpty
                                           ? productdetailcontroller.productCatalog
                                           : []);
@@ -215,7 +227,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                             ),
                             GestureDetector(
                               onTap: () {
-                                print("Lists");
+                                // print("Lists");
                               },
                               child: Container(
                                 padding: EdgeInsets.all(4.0),
@@ -246,7 +258,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Expanded(child: Html(data: productdetailcontroller.productDetail.description ?? "")),
+                              Expanded(child: Html(data: productdetailcontroller.productDetail?.description ?? "")),
                             ],
                           ),
                           SizedBox(
@@ -257,7 +269,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                                 //   _ShowExpressInterestPopup(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return EnquiryScreen(
-                                      key: UniqueKey(), product: productdetailcontroller.productDetail.name ?? "");
+                                      key: UniqueKey(), product: productdetailcontroller.productDetail?.name ?? "");
                                 }));
                               },
                               style: OutlinedButton.styleFrom(

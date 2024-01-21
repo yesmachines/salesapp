@@ -21,7 +21,7 @@ class DashboardController extends GetxController {
         if (json["success"]) {
           final List result = json["data"];
           divisionList.value = result.map((e) => Divisions.fromJson(e)).toList();
-          print(divisionList.length);
+          // // print(divisionList.length);
           isLoading.value = false;
           update();
         } else {

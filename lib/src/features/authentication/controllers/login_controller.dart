@@ -50,8 +50,6 @@ class LoginController extends GetxController {
     } catch (e) {
       isPostLoading.value = false;
 
-      print(e.toString());
-
       // Show snackbar with the erro message
       Get.snackbar(
         'Login Failed',
@@ -64,7 +62,6 @@ class LoginController extends GetxController {
   }
 
   onVisibilityPresses() {
-    print(isVisible.value);
     isVisible.toggle();
   }
 }

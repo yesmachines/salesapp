@@ -23,7 +23,7 @@ class _VideosListScreenState extends State<VideosListScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             if (MediaQuery.of(context).orientation == Orientation.landscape) {
               SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

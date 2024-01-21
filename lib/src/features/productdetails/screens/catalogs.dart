@@ -8,11 +8,17 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class ProductCatalogScreen extends StatelessWidget {
   final List<Map<String, dynamic>> productCatalog;
   String rootPath = ApiEndPoints.imageRootPath;
+  final bool isyc;
 
-  ProductCatalogScreen({required Key key, required this.productCatalog}) : super(key: key);
+  ProductCatalogScreen({Key? key, required this.productCatalog, required this.isyc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (isyc == true) {
+      rootPath = ApiEndPoints.ycImageRootPath;
+    } else {
+      rootPath = ApiEndPoints.imageRootPath;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

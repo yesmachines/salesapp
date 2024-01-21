@@ -22,7 +22,6 @@ class SearchpageController extends GetxController {
     if (prodName.isEmpty) {
       results = allproducts;
     } else {
-      print(prodName);
       results = allproducts
           .where((element) => element.name.toString().toLowerCase().contains(prodName.toLowerCase()))
           .toList();
@@ -35,7 +34,6 @@ class SearchpageController extends GetxController {
     try {
       var headers = {"Content-Type": "application/json"};
       var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.productEndPoints.productUrl);
-      print(url);
 
       http.Response response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
@@ -56,8 +54,8 @@ class SearchpageController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-      print(e.toString());
-      rethrow;
+
+      // rethrow;
     }
   }
 }

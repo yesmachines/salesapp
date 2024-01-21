@@ -53,7 +53,7 @@ class ProfileController extends GetxController {
         throw jsonDecode(response.body)["message"] ?? "Unknown error occured";
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 }

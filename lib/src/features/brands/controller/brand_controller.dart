@@ -27,11 +27,11 @@ class BrandController extends GetxController {
       var headers = {"Content-Type": "application/json"};
       var url = Uri.parse(
           "${ApiEndPoints.baseUrl}${ApiEndPoints.brandEndPoints.brandUrl}?division=$divisionId${isyc == true ? ("&is_yc=$isyc") : ""}");
-      log(url.toString());
+      // log(url.toString());
       http.Response response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        log(json.toString());
+        // log(json.toString());
         if (json["success"]) {
           final List result = json["data"];
           supplierList.value = result.map((e) => BrandSuppliersResModel.fromJson(e)).toList();
