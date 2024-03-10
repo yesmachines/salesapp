@@ -22,9 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
       final token = prefs.getString(AppConfig.acessToken);
 
       if (token != null && token.isNotEmpty) {
-        Get.off(const NavigationMenu());
+        Get.off(() => const NavigationMenu());
       } else {
-        Get.off(const LoginScreen());
+        Get.off(() => const LoginScreen());
       }
     });
     super.initState();

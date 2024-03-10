@@ -37,6 +37,7 @@ class LoginController extends GetxController {
           final SharedPreferences prefs = await _prefs;
           await prefs.setString(AppConfig.acessToken, token);
           await prefs.setString("userid", userid.toString());
+          await prefs.setString("login_email", emailController.text.trim());
 
           emailController.clear();
           passwordController.clear();

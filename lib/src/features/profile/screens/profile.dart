@@ -41,21 +41,23 @@ class Profile extends StatelessWidget {
                         height: 120,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: CommonImageView(url: rootPath + userInfo.imageUrl)),
+                            child: CommonImageView(
+                              url: rootPath + (userInfo.imageUrl ?? ""),
+                            )),
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        userInfo.username,
+                        userInfo.username ?? "",
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        userInfo.useremail,
+                        userInfo.useremail ?? "",
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        userInfo.designation,
+                        userInfo.designation ?? "",
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
                       const SizedBox(height: 10),

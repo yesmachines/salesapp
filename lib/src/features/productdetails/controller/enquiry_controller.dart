@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,12 +15,15 @@ class EnquiryController extends GetxController {
   TextEditingController productController = TextEditingController();
 
   RxBool isLoading = false.obs;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<void> sendEnquiryForm() async {
+  Future<void> sendEnquiryForm({bool isyc = false}) async {
+    final SharedPreferences prefs = await _prefs;
     isLoading.value = true;
     try {
       var headers = {"Content-Type": "application/json"};
-      var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.enquiryEndPoints.enquiryUrl);
+      var url = Uri.parse(
+          "${ApiEndPoints.baseUrl}${ApiEndPoints.enquiryEndPoints.enquiryUrl}${isyc == true ? ("?is_yc=$isyc") : ""}");
       //// print(url);
       Map body = {
         "name": nameController.text.trim(),
@@ -27,10 +31,15 @@ class EnquiryController extends GetxController {
         "email": emailController.text.trim(),
         "mobile": phoneController.text.trim(),
         "message": messageController.text.trim(),
-        "product": productController.text.trim()
+        "product": productController.text.trim(),
+        "login_email": prefs.getString("login_email"), // to send login email with  the  enquiry
       };
 
+      log(body.toString());
+
       http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
+      log(url.toString());
+
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         //  // print(json);

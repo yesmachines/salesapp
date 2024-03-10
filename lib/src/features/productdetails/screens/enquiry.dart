@@ -5,7 +5,12 @@ import '../controller/enquiry_controller.dart';
 
 class EnquiryScreen extends StatefulWidget {
   final String product;
-  const EnquiryScreen({Key? key, required this.product}) : super(key: key);
+  final bool isYc;
+  const EnquiryScreen({
+    Key? key,
+    required this.product,
+    this.isYc = false,
+  }) : super(key: key);
 
   @override
   State<EnquiryScreen> createState() => _EnquiryScreenState(product);
@@ -163,7 +168,7 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
                                 if (_formKey1.currentState!.validate()) {
                                   // If the form is valid, display a snackbar. In the real world,
                                   // you'd often call a server or save the information in a database.
-                                  enquiryController.sendEnquiryForm();
+                                  enquiryController.sendEnquiryForm(isyc: widget.isYc);
                                 }
                               },
                             ),

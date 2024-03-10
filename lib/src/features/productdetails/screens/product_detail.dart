@@ -269,7 +269,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                                 //   _ShowExpressInterestPopup(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return EnquiryScreen(
-                                      key: UniqueKey(), product: productdetailcontroller.productDetail?.name ?? "");
+                                      isYc: widget.isyc,
+                                      key: UniqueKey(),
+                                      product: productdetailcontroller.productDetail?.name ?? "");
                                 }));
                               },
                               style: OutlinedButton.styleFrom(
@@ -313,7 +315,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
                         TabBarView(
                           controller: imagesController,
                           children: List.generate(banners.length, (int index) {
-                            return CommonImageView(url: rootPath + banners[index]['image_url']);
+                            return CommonImageView(fit: BoxFit.contain, url: rootPath + banners[index]['image_url']);
                           }),
                         ),
                         Container(

@@ -24,14 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40.0,
                 ),
                 Image.asset(
                   "assets/logo.png",
                   height: size.height * 0.2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Text(
@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Form(
                   key: _formKey,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 30.0),
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -56,13 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                           keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: "Email",
                             prefixIcon: Icon(Icons.email_rounded),
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Obx(() {
@@ -77,25 +77,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             decoration: InputDecoration(
                               labelText: "Password",
-                              prefixIcon: Icon(Icons.key_rounded),
-                              border: OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.key_rounded),
+                              border: const OutlineInputBorder(),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   loginController.onVisibilityPresses();
                                 },
                                 icon: loginController.isVisible.value
-                                    ? Icon(Icons.remove_red_eye_sharp)
-                                    : Icon(Icons.visibility_off),
+                                    ? const Icon(Icons.remove_red_eye_sharp)
+                                    : const Icon(Icons.visibility_off),
                               ),
                             ),
                           );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Obx(() {
                           return loginController.isPostLoading.value
-                              ? CircularProgressIndicator()
+                              ? const CircularProgressIndicator()
                               : OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                     foregroundColor: Colors.white,
